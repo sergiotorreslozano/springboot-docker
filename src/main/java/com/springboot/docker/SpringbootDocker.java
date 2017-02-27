@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpringbootDocker {
 
 	public static void main(String[] args) {
+		System.out.println("it works!");
 		SpringApplication.run(SpringbootDocker.class, args);
 	}
 
