@@ -16,7 +16,7 @@ public class SpringbootDocker {
 	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public static void main(String[] args) {
-		log.debug("Springbood Docker init...");
+		log.debug("Springbood Docker init");
 		SpringApplication.run(SpringbootDocker.class, args);
 	}
 
