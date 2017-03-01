@@ -1,7 +1,13 @@
 language: java
 jdk:
 - oraclejdk8
+services:
+  docker
 branches:
   only:
   - master
 script: mvn test -B 
+after_success:
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker build -t sergiotorreslozano/springboot-docker .
+- docker push sergiotorreslozano/springboot-docker
