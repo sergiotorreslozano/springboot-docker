@@ -21,8 +21,22 @@ public class SpringbootDocker {
 	}
 
 	@RequestMapping("/")
-	public String home() {
+	public Greeting home() {
 		log.debug("Got a request!");
-		return "Hello Docker World";
+		return new Greeting("Hello Docker World");
 	}
+
+}
+
+class Greeting {
+	String greeting;
+
+	/**
+	 * @param greeting
+	 */
+	Greeting(String greeting) {
+		super();
+		this.greeting = greeting;
+	}
+
 }
