@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -21,7 +22,7 @@ public class SpringbootDocker {
 	}
 
 	@RequestMapping("/")
-	public Greeting home() {
+	public @ResponseBody Greeting home() {
 		log.debug("Got a request!");
 		return new Greeting("Hello Docker World");
 	}
@@ -38,5 +39,13 @@ class Greeting {
 		super();
 		this.greeting = greeting;
 	}
+
+	/**
+	 * @return the greeting
+	 */
+	public String getGreeting() {
+		return greeting;
+	}
+
 
 }
