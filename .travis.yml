@@ -10,11 +10,10 @@ script: mvn test -B
 env:
   global:
      - COMMIT=${TRAVIS_COMMIT::6}
+     - REPO=$DOCKER_USERNAME/springboot-docker
 after_success:
-  — export REPO=$DOCKER_USERNAME/springboot-docker
-  — docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  — docker build -t $REPO:$COMMIT .
-  — docker tag $REPO:$COMMIT $REPO:latest
-  — docker tag $REPO:$COMMIT $REPO:$TRAVIS_BUILD_NUMBER
-  — docker push $REPO
-  — echo $REPO:$TAG:$COMMIT
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker build -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:latest
+- docker tag $REPO:$COMMIT $REPO:$TRAVIS_BUILD_NUMBER
+- docker push $REPO
