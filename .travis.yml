@@ -9,5 +9,5 @@ branches:
 script: mvn test -B 
 after_success:
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- docker build -t sergiotorreslozano/springboot-docker .
-- docker push sergiotorreslozano/springboot-docker
+- docker build -t $DOCKER_USERNAME/springboot-docker .
+- docker push $DOCKER_USERNAME/springboot-docker
