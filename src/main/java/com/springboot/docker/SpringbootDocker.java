@@ -25,7 +25,7 @@ public class SpringbootDocker {
 	@RequestMapping("/")
 	public @ResponseBody Greeting home() {
 		log.debug("Got a request!");
-		return new Greeting("Hello Docker World and Kubernetes");
+		return new Greeting("Hello Docker World and Kubernetes and Travis-ci");
 	}
 
 	@RequestMapping("/{greeting}")
