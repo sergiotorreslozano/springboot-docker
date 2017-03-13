@@ -6,7 +6,7 @@ services:
 branches:
   only:
   - master
-script: mvn test -B 
+script: mvn test -B -Dspring.profiles.active=test
 env:
   global:
      - COMMIT=${TRAVIS_COMMIT::6}
