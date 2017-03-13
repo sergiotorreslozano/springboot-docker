@@ -4,18 +4,25 @@ import java.lang.invoke.MethodHandles;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+@EnableFeignClients
 public class SpringbootDocker {
 
 	private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+	@Autowired
+	private ChuckFactClient chuckFactClient;
 
 	public static void main(String[] args) {
 		log.debug("Springbood Docker init");
@@ -23,36 +30,22 @@ public class SpringbootDocker {
 	}
 
 	@RequestMapping("/")
-	public @ResponseBody Greeting home() {
+	public @ResponseBody String home() {
 		log.debug("Got a request!");
-		return new Greeting("Hello Docker World and Kubernetes and Travis-ci and Spring boot");
+		return "Hello Docker World and Kubernetes and Travis-ci and Spring boot";
 	}
 
-	@RequestMapping("/{greeting}")
-	public @ResponseBody Greeting greeting(@PathVariable String greeting) {
+	@RequestMapping("/chuck")
+	public @ResponseBody ChuckFact greeting() {
 		log.debug("Got a request!");
-		return new Greeting("Hello " + greeting);
+		return chuckFactClient.randomFact();
 	}
 
 }
 
-class Greeting {
-	String greeting;
+@FeignClient("springboot-docker-db")
+interface ChuckFactClient {
 
-	/**
-	 * @param greeting
-	 */
-	Greeting(String greeting) {
-		super();
-		this.greeting = greeting;
-	}
-
-	/**
-	 * @return the greeting
-	 */
-	public String getGreeting() {
-		return greeting;
-	}
-
-
+	@RequestMapping(method = RequestMethod.GET, value = "/chuck")
+	ChuckFact randomFact();
 }
