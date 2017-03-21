@@ -1,4 +1,4 @@
-package com.springboot.docker;
+package com.springboot.docker.chuck;
 
 import java.io.Serializable;
 
